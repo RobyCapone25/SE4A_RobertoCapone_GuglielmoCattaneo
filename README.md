@@ -1,9 +1,6 @@
 
 <!-- FINAL-SUBMISSION-NOTICE:START -->
 
-> [!NOTE]
-> `Deliverable_3_Implementation/` is self-contained and includes the complete executable source code, installation material, documentation, case studies, UML sources, and assets.
-
 ## Final submission structure
 
 | Artifact | Repository location |
