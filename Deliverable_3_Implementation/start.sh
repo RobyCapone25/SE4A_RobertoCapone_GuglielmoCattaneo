@@ -112,5 +112,5 @@ while [ "$STOP" = "0" ] ; do
   sleep 3
 done
 
-echo "   Delivery in: ~/UAV-Testing-Competition/snippets/generated_tests/$(basename $RUN_DIR)/consegna/"
-echo "   (full fail history in .../$(basename $RUN_DIR)/all_fails/)"
+echo "   Delivery in: $SCRIPT_DIR/generated_tests/$(basename "$RUN_DIR")/consegna/"
+echo "   (full fail history in: $SCRIPT_DIR/generated_tests/$(basename "$RUN_DIR")/all_fails/)"
