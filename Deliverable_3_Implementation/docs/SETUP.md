@@ -47,7 +47,7 @@ Linux host
         └── Gazebo
 ```
 
-The `start.sh` launcher mounts the local `snippets/` directory into the
+The `start.sh` launcher mounts the local `Deliverable_3_Implementation/` directory into the
 container, copies the generator source files into Aerialist, starts the
 simulation, and writes the generated artifacts back to the host.
 
@@ -184,47 +184,58 @@ docker images skhatiri/aerialist
 
 ---
 
-## 7. Repository Location and Portability
+## 7. Repository-Path Compatibility
 
-The repository may be cloned into any local directory. The launcher determines
-the absolute location of the `snippets/` directory from the location of
-`start.sh` itself:
+The current `start.sh` launcher mounts the following fixed host path:
 
-```bash
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+```text
+~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation
 ```
 
-This resolved directory is used for:
+When the repository is stored in:
 
-- the `/workspace` Docker mount;
-- the local `generated_tests/` directory;
-- the Aerialist generated-test output mount.
-
-Therefore, no symbolic link and no fixed repository path are required.
-
-For the repository location used in this guide:
-
-```bash
-cd ~/Projects/UAV-Testing-Competition/snippets
+```text
+~/Projects/UAV-Testing-Competition
 ```
 
-Verify the portable path configuration:
+create a symbolic link once:
 
 ```bash
-grep -nE 'SCRIPT_DIR|/workspace|aerialist/generated_tests' start.sh
+test -e ~/UAV-Testing-Competition || \
+ln -s ~/Projects/UAV-Testing-Competition ~/UAV-Testing-Competition
 ```
 
-Verify that the required files are present:
+Verify the resolved path:
 
 ```bash
-test -f cli.py
-test -f es_generator.py
-test -f random_generator.py
-test -f testcase.py
-test -d case_studies
-
-echo "Repository location verified."
+readlink -f ~/UAV-Testing-Competition
 ```
+
+The expected resolved directory is:
+
+```text
+/home/<username>/Projects/UAV-Testing-Competition
+```
+
+Verify that the source files are visible through the path used by Docker:
+
+```bash
+test -f ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation/cli.py
+test -f ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation/es_generator.py
+test -f ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation/testcase.py
+test -d ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation/case_studies
+
+echo "Repository path verified."
+```
+
+This compatibility step prevents errors such as:
+
+```text
+cp: cannot stat '/workspace/testcase.py'
+```
+
+---
+
 ## 8. Prepare the Launcher
 
 Enter the generator directory:
@@ -394,11 +405,7 @@ are not fully deterministic.
 
 ## 13. Important Runtime Parameters
 
-The runtime parameters listed below are explicitly supported by `start.sh`.
-They may be assigned before the command invocation. Variables defined in
-`config.py` but not explicitly forwarded by `start.sh` are not propagated
-into the Docker container. `MAX_RESTARTS` is handled directly by the
-host-side launcher.
+Runtime parameters can be passed before `./start.sh`.
 
 | Variable | Default | Meaning |
 |---|---:|---|
@@ -625,7 +632,7 @@ Each YAML file must have a corresponding `.ulg` file.
 
 The repository also provides a `Dockerfile`.
 
-Build the standalone image from `snippets/`:
+Build the standalone image from `Deliverable_3_Implementation/`:
 
 ```bash
 cd ~/Projects/UAV-Testing-Competition/snippets
@@ -723,32 +730,30 @@ Example:
 cp: cannot stat '/workspace/testcase.py'
 ```
 
-The launcher mounts the directory containing `start.sh` as `/workspace`.
-
-Verify that the required project files exist:
+Check the path expected by `start.sh`:
 
 ```bash
-cd ~/Projects/UAV-Testing-Competition/snippets
-
-test -f testcase.py
-test -f cli.py
-test -f es_generator.py
+readlink -f ~/UAV-Testing-Competition
+ls -la ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation
 ```
 
-Inspect the resolved directory and Docker mounts:
+Recreate the compatibility link when necessary:
 
 ```bash
-grep -nE 'SCRIPT_DIR|/workspace|aerialist/generated_tests' start.sh
+rm -f ~/UAV-Testing-Competition
+
+ln -s \
+  ~/Projects/UAV-Testing-Competition \
+  ~/UAV-Testing-Competition
 ```
 
-The expected mount definitions are:
+Then verify:
 
 ```bash
--v "$SCRIPT_DIR:/workspace"
--v "$SCRIPT_DIR/generated_tests:/src/aerialist/generated_tests"
+test -f ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation/testcase.py &&
+echo "Mount source is valid."
 ```
 
-No repository-level symbolic link is required.
 ### `start.sh` is not executable
 
 ```bash
@@ -846,6 +851,7 @@ test -f case_studies/mission1.yaml
 test -f case_studies/mission2.yaml
 test -f case_studies/mission3.yaml
 
+test -f ~/Projects/SE4A_RobertoCapone_GuglielmoCattaneo/Deliverable_3_Implementation/testcase.py
 
 echo "SETUP CHECK PASSED"
 ```

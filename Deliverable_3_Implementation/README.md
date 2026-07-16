@@ -1,3 +1,14 @@
+
+<!-- IMPLEMENTATION-DELIVERABLE-NOTICE:START -->
+
+> [!IMPORTANT]
+> This directory is the complete Implementation Deliverable. It can be installed and executed independently from the repository root; no file from the former `snippets/` staging directory is required.
+
+> [!NOTE]
+> Execute `./start.sh <budget> <mission> [headless]` from this directory. Runtime outputs are written under `generated_tests/`.
+
+<!-- IMPLEMENTATION-DELIVERABLE-NOTICE:END -->
+
 > [!IMPORTANT]
 > Before installing or running the project, follow the detailed [Setup Guide](docs/SETUP.md). It contains the required installation, configuration, execution, verification, and troubleshooting instructions.
 
@@ -96,7 +107,7 @@ env (default 1.5, see table below).
 ./start.sh 100 mission1
 ```
 
-`start.sh` mounts `snippets/` into the `skhatiri/aerialist` container (the
+`start.sh` mounts `Deliverable_3_Implementation/` into the `skhatiri/aerialist` container (the
 base image, no build needed) and copies the code into it on every start: it
 launches with `AGENT=local` and automatically restarts from checkpoint if
 Gazebo crashes, until the budget is exhausted or the user interrupts with

@@ -1,12 +1,11 @@
 #!/bin/bash
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # Single container for the whole budget: the generator keeps state and archive
 TOTAL_BUDGET=${1:-20}
 MISSION_ARG=${2:-mission1}
 HEADLESS=${3:-true}
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
-
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 # accepts a short name ("mission3") or a full path; the file must be in
 # case_studies/ with a nominal .plan and .ulg (used for adaptive init, or
@@ -81,6 +80,7 @@ while [ "$STOP" = "0" ] ; do
     -e SEED="${SEED:-}" \
     -e N_RUNS=${N_RUNS:-1} \
     -e TEST_TIMEOUT=${TEST_TIMEOUT:-500} \
+    -e SIM_RETRIES=${SIM_RETRIES:-3} \
     -e GENERATOR="${GENERATOR:-es}" \
     -e INIT_SEEDS=${INIT_SEEDS:-5} \
     -e STAGNATION_LIMIT=${STAGNATION_LIMIT:-15} \
@@ -112,5 +112,5 @@ while [ "$STOP" = "0" ] ; do
   sleep 3
 done
 
-echo "   Delivery in: $SCRIPT_DIR/generated_tests/${RUN_DIR##*/}/consegna/"
-echo "   (full fail history in .../${RUN_DIR##*/}/all_fails/)"
+echo "   Delivery in: ~/UAV-Testing-Competition/snippets/generated_tests/$(basename $RUN_DIR)/consegna/"
+echo "   (full fail history in .../$(basename $RUN_DIR)/all_fails/)"
