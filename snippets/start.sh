@@ -79,6 +79,7 @@ while [ "$STOP" = "0" ] ; do
     -e SEED="${SEED:-}" \
     -e N_RUNS=${N_RUNS:-1} \
     -e TEST_TIMEOUT=${TEST_TIMEOUT:-500} \
+    -e SIM_RETRIES=${SIM_RETRIES:-3} \
     -e GENERATOR="${GENERATOR:-es}" \
     -e INIT_SEEDS=${INIT_SEEDS:-5} \
     -e STAGNATION_LIMIT=${STAGNATION_LIMIT:-15} \

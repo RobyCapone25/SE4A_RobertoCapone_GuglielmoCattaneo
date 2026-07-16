@@ -1,0 +1,70 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=1.65cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\definecolor{PolimiBlue}{RGB}{0,83,155}
+\hypersetup{colorlinks=true,linkcolor=PolimiBlue,urlcolor=PolimiBlue,citecolor=PolimiBlue}
+\setlist[itemize]{leftmargin=1.4em,itemsep=1pt,topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Search-Based Test Generation for Autonomous UAV Obstacle Avoidance Using a $(1+1)$-Evolution Strategy}\\[4pt]
+{\large Software Engineering for Automation -- Project Proposal}\\[4pt]
+\textbf{Authors:} Roberto Capone and Guglielmo Cattaneo \quad
+\textbf{Instructor:} Prof. Matteo Camilli\\[2pt]
+Politecnico di Milano -- A.Y. 2025--2026 \quad
+\textbf{Release date:} 17/07/2026 \quad
+\textbf{Version:} 1.0
+\end{center}
+
+\vspace{-2mm}
+\hrule
+\vspace{2mm}
+
+\textbf{Context and problem.}
+Autonomous unmanned aerial vehicles are safety-critical cyber-physical systems whose obstacle-avoidance behaviour is difficult and expensive to test in the physical world. The UAV Testing Competition provides PX4-Avoidance as the system under test and Aerialist as a simulation-based test bench. A test generator must produce valid obstacle configurations that expose unsafe trajectories or collisions while respecting a bounded simulation budget and the competition constraints.
+
+\textbf{Project objective.}
+The project develops a robust, reproducible, and modular test-generation tool based on a $(1+1)$-Evolution Strategy. The search minimises the minimum distance between the UAV trajectory and the generated obstacles. The tool additionally preserves diverse failures, favours simple test cases in the final ranking, mitigates simulator non-determinism, and recovers from simulator or container failures without losing the search state.
+
+\textbf{Scope.}
+The system accepts an Aerialist YAML case study and a simulation budget, generates one to three legal non-overlapping box obstacles, executes candidate tests through Aerialist and PX4/Gazebo, evaluates the observed trajectories, maintains an archive of failing tests, and exports an ordered delivery suite. The project includes a random-search baseline for experimental comparison. PX4, Gazebo, Aerialist, the mission definitions, and the official evaluator are external systems and are not modified.
+
+\textbf{Principal functions.}
+\begin{itemize}
+  \item adaptive obstacle sampling along the nominal mission route, with route bootstrapping when no nominal flight log is available;
+  \item Gaussian mutation, Rechenberg's $1/5$ success rule, stagnation detection, diversified restart, and targeted intensification;
+  \item simulation execution with timeout, retries, budget accounting, and optional confirmation of highly critical candidates;
+  \item persistent checkpointing and exact re-execution of an interrupted candidate after a crash;
+  \item failure archiving, trajectory-space diversity filtering through Dynamic Time Warping, official-style ranking, and generation of YAML, ULog, and plot artifacts;
+  \item interchangeable execution of the evolutionary generator and an independent random-search baseline.
+\end{itemize}
+
+\textbf{Quality objectives.}
+The implementation shall prioritise correctness, compliance with obstacle constraints, recoverability, reproducibility, maintainability, traceability, and ease of execution in Docker. A complete run shall never exceed its declared simulation budget, and every delivered test shall be reconstructible from persistent artifacts.
+
+\textbf{Expected deliverables.}
+\begin{enumerate}[leftmargin=1.5em,itemsep=1pt,topsep=2pt]
+  \item Requirements Analysis and Specification Document;
+  \item Design Document with structural, behavioural, deployment, and traceability views;
+  \item final implementation, execution instructions, UML models, tests, experiment outputs, and presentation in the project Git repository.
+\end{enumerate}
+
+\textbf{Reference implementation.}
+\url{https://github.com/gulicatta/UAV-Testing-Competition/tree/es-generator}
+
+\end{document}
