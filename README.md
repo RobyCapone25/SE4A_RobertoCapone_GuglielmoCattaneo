@@ -1,11 +1,8 @@
 
 <!-- FINAL-SUBMISSION-NOTICE:START -->
 
-> [!IMPORTANT]
-> This repository is the final hand-in for the Software Engineering project. The authoritative artifacts are the project proposal and the three deliverable directories listed below.
-
 > [!NOTE]
-> `Deliverable_3_Implementation/` is self-contained and includes the complete executable source code, installation material, documentation, case studies, UML sources, and assets. The former staging directory `snippets/` is no longer required.
+> `Deliverable_3_Implementation/` is self-contained and includes the complete executable source code, installation material, documentation, case studies, UML sources, and assets.
 
 ## Final submission structure
 
