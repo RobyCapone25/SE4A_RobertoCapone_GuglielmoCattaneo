@@ -116,7 +116,7 @@
 \toprule
 \textbf{Date} & \textbf{Version} & \textbf{Authors} & \textbf{Description}\\
 \midrule
-17/07/2026 & 1.0 & Roberto Capone; Guglielmo Cattaneo & Initial complete release aligned with the final \texttt{es-generator} implementation branch and Requirements Analysis and Specification version 1.0.\\
+17/07/2026 & 1.0 & Roberto Capone; Guglielmo Cattaneo & Initial complete release aligned with the final implementation contained in the project repository and Requirements Analysis and Specification version 1.0.\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -131,7 +131,7 @@
 \section{Purpose}
 This document defines the architecture and detailed design of the \systemname. It translates the functional and non-functional requirements stated in the Requirements Analysis and Specification Document into components, classes, interfaces, algorithms, persistent data structures, runtime interactions, and integration decisions.
 
-The design is descriptive of the final implementation in the \texttt{es-generator} branch. It therefore serves both as an architectural specification and as a traceability reference for reviewing the submitted source code.
+The design describes the final implementation contained in the project repository. It therefore serves both as an architectural specification and as a traceability reference for reviewing the submitted source code.
 
 \section{Project Goals}
 The system is designed to generate effective and diverse failing test cases for PX4-Avoidance under a finite simulation budget. The principal design goals are:
@@ -546,7 +546,7 @@ generated_tests/<mission>-<generator>[-sSEED]-<date>/
 The complete failure history is append-only from the perspective of delivery construction. Delivery files are copies; they may be rebuilt or stale ranks removed without altering \code{all\_fails}.
 
 \section{Runtime View}
-The class, sequence, and execution-flow figures are synchronized with the repository-maintained Mermaid sources in \texttt{snippets/docs/uml/}. The TikZ versions below are used to keep this document self-contained and printable.
+The class, sequence, and execution-flow figures are synchronized with the repository-maintained Mermaid sources in \texttt{Deliverable\_3\_Implementation/docs/uml/}. The TikZ versions below are used to keep this document self-contained and printable.
 
 
 \subsection{Fresh Evolutionary Run}
@@ -1363,7 +1363,7 @@ Data preservation & Hashes and file counts in \code{all\_fails} remain unchanged
 
 \item M. Camilli, \emph{Software Engineering (for Automation) -- Project Guideline}, Politecnico di Milano, A.Y. 2024--2025.
 
-\item G. Cattaneo and R. Capone, \emph{UAV Testing Competition -- $(1+1)$-ES Generator Branch}, 2026. Available: \url{https://github.com/gulicatta/UAV-Testing-Competition/tree/es-generator}.
+\item R. Capone and G. Cattaneo, \emph{Search-Based Test Generation for Autonomous UAV Obstacle Avoidance Using a $(1+1)$-Evolution Strategy}, Software Engineering Project Repository, 2026. Available: \url{https://github.com/gulicatta/SE4A_RobertoCapone_GuglielmoCattaneo}.
 
 \item UAV Testing Competition, \emph{Official Repository and Competition Documentation}. Available: \url{https://github.com/skhatiri/UAV-Testing-Competition}.
 
